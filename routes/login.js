@@ -1,7 +1,6 @@
-import express from "express";
-
-import bodyParser from "body-parser";
-import users from "../users.json" assert { type: "json" };
+const express = require("express");
+const bodyParser = require("body-parser");
+const users = require("../users.json");
 
 const router = express();
 router.use(bodyParser.json());

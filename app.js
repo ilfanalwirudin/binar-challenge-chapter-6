@@ -1,12 +1,12 @@
-//Import Modules
-import express from "express";
-import bodyParser from "body-parser";
-import morgan from "morgan";
-import cookieParser from "cookie-parser";
-import apiRouter from "./routes/api.js";
-import loginRouter from "./routes/login.js";
-import gameRouter from "./routes/game.js";
-import indexRouter from "./routes/index.js";
+//const Modules
+const express = require("express");
+const bodyParser = require("body-parser");
+const morgan = require("morgan");
+const cookieParser = require("cookie-parser");
+const apiRouter = require("./routes/api.js");
+const loginRouter = require("./routes/login.js");
+const gameRouter = require("./routes/game.js");
+const indexRouter = require("./routes/index.js");
 
 //Define Variables
 const app = express();

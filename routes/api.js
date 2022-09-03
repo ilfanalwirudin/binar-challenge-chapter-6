@@ -1,6 +1,6 @@
-import express from "express";
-import users from "../users.json" assert { type: "json" };
-import bcrypt from "bcrypt";
+const express = require("express");
+const users = require("../users.json");
+const bcrypt = require("bcrypt");
 
 const app = express();
 
@@ -44,4 +44,4 @@ app.post("/user/login", async (req, res) => {
   }
 });
 
-export default app;
+module.exports = app;
