@@ -1,0 +1,37 @@
+{
+  "name": "challenge6",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/github.com/ilfanalwirudin.git"
+  },
+  "author": "ilfanalwirudin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/github.com/ilfanalwirudin/issues"
+  },
+  "homepage": "https://github.com/github.com/ilfanalwirudin#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.20.0",
+    "cookie-parser": "^1.4.6",
+    "debug": "^4.3.4",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "http-errors": "^2.0.0",
+    "lodash": "^4.17.21",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.19",
+    "pnpm": "^7.9.0",
+    "sequelize-cli": "^6.4.1",
+    "uuid": "^8.3.2",
+    "yarn": "^1.22.19"
+  }
+}

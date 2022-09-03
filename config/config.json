@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "ilfanalwirudin",
+    "password": "ilfanalwirudin",
+    "database": "binarChallenge6",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "ilfanalwirudin",
+    "password": "ilfanalwirudin",
+    "database": "binarChallenge6Test",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "ilfanalwirudin",
+    "password": "ilfanalwirudin",
+    "database": "binarChallenge6Production",
+    "host": "localhost",
+    "dialect": "postgres"
+  }
+}
