@@ -1,47 +1,31 @@
 const express = require("express");
-const users = require("../users.json");
-const bcrypt = require("bcrypt");
-
 const app = express();
+
+const { userGame, userBiodata, userGameHistory } = require("../models");
 
 app.use(express.Router());
 app.use(express.json());
 
-// Get /user
+// Create /user
+app.post("/users", (req, res) =>
+  userGame
+    .create({
+      username: req.body.username,
+      password: req.body.password,
+    })
+    .then((user) => res.status(2001).json(user))
+    .catch(() => res.status(422).send("Cannot create user"))
+);
 
-app.get("/user", async (req, res) => {
-  res.status(200).json(users);
-});
-
-//post with bycrypt
-app.post("/user", async (req, res) => {
-  try {
-    const salt = await bcrypt.genSalt();
-    const hashedPassword = await bcrypt.hash(req.body.password, salt);
-    console.log(salt);
-    console.log(hashedPassword);
-    const user = { username: req.body.username, password: hashedPassword };
-    user.push(user);
-    res.status(201).send();
-  } catch {
-    res.status(500).send();
-  }
-});
-
-app.post("/user/login", async (req, res) => {
-  const user = user.find((user) => user.username === req.body.username);
-  if (user == null) {
-    return res.status(400).send("Cannot find user");
-  }
-  try {
-    if (await bcrypt.compare(req.body.password, username.password)) {
-      res.send("Success");
-    } else {
-      res.send("Not allowed");
-    }
-  } catch {
-    res.status(500).send();
-  }
-});
+//Read /user
+app.get("/users", (req, res) =>
+  userGame
+    .findAll()
+    .then((user) =>
+      user.length == 0
+        ? res.status(200).send("No users yet!")
+        : res.status(200).json(user)
+    )
+);
 
 module.exports = app;
