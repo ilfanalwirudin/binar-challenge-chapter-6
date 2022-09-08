@@ -1,13 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const models = require("../models");
+const { userGame, userGameHistory, userBiodata } = require("../models");
 const bcrypt = require("bcrypt");
 
 // READ
 
 router.get("/dashboard", async (req, res) => {
   const msg = req.query.msg;
-  const user = await models.userGame.findAll();
+  const user = await userGame.findAll();
   res.status(200).render("dashboard", {
     title: "Dashboard Page",
     user,
@@ -16,6 +16,7 @@ router.get("/dashboard", async (req, res) => {
 });
 
 // CREATE
+
 router.post("/dashboard/add", async (req, res) => {
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
   const userData = {
@@ -35,19 +36,19 @@ router.post("/dashboard/add", async (req, res) => {
             .create(userData)
             .then((userGame) => {
               userGame.create({
-                userId: userGame.get("id"),
+                id: userGame.get("id"),
               });
               userGameHistory.create({
-                userId: userGame.get("id"),
+                id: userGame.get("id"),
               });
-              res.status(201).redirect("/dashboard?user=admin&msg=created");
+              res.status(201).redirect("/dashboard");
             })
             .catch((err) => {
-              res.status(422).send("Cannot create user:", err);
+              res.status(422).send("Cannot create user");
             })
-        : res.redirect("/dashboard?user=admin&msg=exist")
+        : res.redirect("/dashboard")
     )
-    .catch((err) => res.send("ERROR: " + err));
+    .catch((err) => res.send(err));
 });
 
 // UPDATE
@@ -64,7 +65,7 @@ router.post("/dashboard/edit/:id", async (req, res) => {
     await userGame
       .update(data, { where: { id: req.params.id } })
       .then(() => {
-        res.status(201).redirect("/dashboard?user=admin&msg=updated");
+        res.status(201).redirect("/dashboard&msg=updated");
       })
       .catch((err) => res.status(422).send("Cannot update user: ", err));
 
@@ -84,15 +85,13 @@ router.post("/dashboard/edit/:id", async (req, res) => {
     .then((id) => {
       if (username != "" && password != "") {
         findUsername(username).then((dbUser) => {
-          !dbUser
-            ? updateData(userData)
-            : res.redirect("/dashboard?user=admin&msg=error");
+          !dbUser ? updateData(userData) : res.redirect("/dashboard&msg=error");
         });
       } else if (username != "" && password == "") {
         findUsername(username).then((dbUser) => {
           !dbUser
             ? updateData({ username: username })
-            : res.redirect("/dashboard?user=admin&msg=error");
+            : res.redirect("/dashboard&msg=error");
         });
       } else if (username == "" && password != "") {
         updateData({ password: hashedPassword });
@@ -105,15 +104,13 @@ router.post("/dashboard/edit/:id", async (req, res) => {
 router.post("/dashboard/delete/:id", (req, res) =>
   userGame
     .destroy({ where: { id: req.params.id } })
-    .then(() => res.status(201).redirect("/dashboard?user=admin&msg=deleted"))
+    .then(() => res.status(201).redirect("/dashboard&msg=deleted"))
     .catch(() => res.status(422).send("Cannot delete the games id"))
 );
 
 // HANDLE REDIRECTION READ if any access this page
 router.get("/dashboard/*", (req, res) =>
-  userGame
-    .findAll()
-    .then(() => res.status(200).redirect("/dashboard?user=admin"))
+  userGame.findAll().then(() => res.status(200).redirect("/dashboard"))
 );
 
 module.exports = router;
