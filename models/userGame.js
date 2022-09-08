@@ -15,7 +15,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   userGame.init(
     {
-      id: DataTypes.INTEGER,
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+      },
       username: DataTypes.STRING,
       password: DataTypes.STRING,
     },

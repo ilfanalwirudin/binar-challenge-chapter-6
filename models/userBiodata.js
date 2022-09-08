@@ -10,23 +10,27 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      userBiodata.belongsTo(models.userGame, {
-        foreignKey: "userGameId",
-      });
+      // userBiodata.belongsTo(models.userGame, {
+      //   foreignKey: "userGameId",
+      // });
     }
   }
   userBiodata.init(
     {
-      id: DataTypes.INTEGER,
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+      },
       userGameId: DataTypes.INTEGER,
       DOB: DataTypes.DATEONLY,
       POB: DataTypes.STRING,
       city: DataTypes.STRING,
-      gender: DataTypes.ENUM,
+      gender: DataTypes.ENUM("Male", "Female", "Prefer Not Say"),
     },
     {
       sequelize,
       modelName: "userBiodata",
+      tableName: "userBiodatas",
     }
   );
   return userBiodata;

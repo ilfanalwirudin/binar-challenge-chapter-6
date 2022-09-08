@@ -3,14 +3,18 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
+
+//const router
 const apiRouter = require("./routes/api.js");
 const loginRouter = require("./routes/login.js");
 const gameRouter = require("./routes/game.js");
 const indexRouter = require("./routes/index.js");
+const dashboardRouter = require("./routes/dashboard");
+// const registerRouter = require("./routes/register")
 
 //Define Variables
 const app = express();
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 5000;
 app.set("view engine", "ejs");
 
 // use static module
@@ -22,6 +26,8 @@ app.use(indexRouter);
 app.use(gameRouter);
 app.use(loginRouter);
 app.use(apiRouter);
+app.use(dashboardRouter);
+// app.use(registerRouter);
 
 //use logger middleware
 app.use(morgan("tiny"));
@@ -35,3 +41,5 @@ app.use((req, res, next) => {
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
+
+module.exports = app;

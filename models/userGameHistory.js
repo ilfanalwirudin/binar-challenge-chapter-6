@@ -9,21 +9,25 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      userGameHistory.belongsTo(models.userGame, {
-        foreignKey: "userGameId",
-      });
+      // userGameHistory.belongsTo(models.userGame, {
+      //   foreignKey: "userGameId",
+      // });
     }
   }
   userGameHistory.init(
     {
-      id: DataTypes.INTEGER,
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+      },
       userGameId: DataTypes.INTEGER,
       time: DataTypes.DATE,
-      score: DataTypes.ENUM,
+      score: DataTypes.ENUM("WIN", "LOSE", "DRAW"),
     },
     {
       sequelize,
       modelName: "userGameHistory",
+      tableName: "userGameHistories",
     }
   );
   return userGameHistory;

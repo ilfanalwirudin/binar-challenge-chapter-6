@@ -4,17 +4,12 @@ const router = express();
 router.use(express.Router());
 router.use(express.json());
 
-router.get("/home", (req, res) => {
-  const name = req.query.name;
-  console.log(name);
-  res.render("index");
-});
-
-router.post("/home", (req, res) => {
-  const user = req.query;
-  console.log(user);
-
-  res.render("index");
-});
+// Home Page
+router.get("/", (req, res) =>
+  res.render("index", {
+    title: "Traditional Games",
+    name: req.query.user,
+  })
+);
 
 module.exports = router;
