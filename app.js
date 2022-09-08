@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
+const createError = require("http-errors");
 
 //const router
 const apiRouter = require("./routes/api.js");
@@ -22,6 +23,8 @@ app.use(express.static("public"));
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+//load router
 app.use(indexRouter);
 app.use(gameRouter);
 app.use(loginRouter);
@@ -33,8 +36,16 @@ app.use(dashboardRouter);
 app.use(morgan("tiny"));
 
 //Create error 404
-app.use((req, res, next) => {
+app.use(function (req, res, next) {
   next(createError(404));
+});
+
+app.use(function (err, req, res, next) {
+  res.locals.message = err.message;
+  res.locals.error = req.app.get("env") === "development" ? err : {};
+
+  res.status(err.status || 500);
+  res.render("error");
 });
 
 // Port listener
