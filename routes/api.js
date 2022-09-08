@@ -63,8 +63,8 @@ app.delete("/users/delete/:id", (req, res) =>
     .catch(() => res.status(422).send("Cannot delete the user id"))
 );
 
-// READ /user/profile
-app.get("/profile", (req, res) =>
+// READ /user/biodata
+app.get("/biodata", (req, res) =>
   userBiodata
     .findAll({
       include: [
@@ -81,8 +81,8 @@ app.get("/profile", (req, res) =>
     .catch((err) => res.status(500).send("Error : " + err))
 );
 
-// READ /user/profile
-app.get("/v1/profile", (req, res) =>
+// READ /user/biodata
+app.get("/biodata", (req, res) =>
   userBiodata
     .findAll({
       include: [
@@ -99,8 +99,8 @@ app.get("/v1/profile", (req, res) =>
     .catch((err) => res.status(500).send("Error : " + err))
 );
 
-// READ /user/profile/:id
-app.get("/v1/profile/:id", (req, res) =>
+// READ /user/biodata/:id
+app.get("/biodata/:id", (req, res) =>
   userBiodata
     .findOne({
       where: { id: req.params.id },
