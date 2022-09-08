@@ -39,13 +39,28 @@ router.get("/dashboard", async (req, res) => {
 // });
 
 // Create user
+
+// router.post("/dashboard/add", async (req, res) => {
+//   const hashedPassword = await bcrypt.hash(req.body.password, 10);
+//   const { username } = req.body;
+//   try {
+//     await userGame.create({
+//       username: username,
+//       password: hashedPassword,
+//     });
+//     res.redirect("/dashboard");
+//   } catch (error) {
+//     res.json({ error: error.message });
+//   }
+// });
+
 router.post("/dashboard/add", async (req, res) => {
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
   const userData = {
     username: req.body.username,
     password: hashedPassword,
   };
-  await userGame
+  userGame
     .findOne({
       where: {
         username: req.body.username,
@@ -55,11 +70,7 @@ router.post("/dashboard/add", async (req, res) => {
       !user
         ? userGame
             .create(userData)
-            .then((userGame) => {
-              userGame.create({
-                id: userGame.get("id"),
-              });
-
+            .then(() => {
               res.status(201).redirect("/dashboard");
             })
             .catch((err) => {

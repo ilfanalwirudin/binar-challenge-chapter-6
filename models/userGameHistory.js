@@ -9,15 +9,16 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      // userGameHistory.belongsTo(models.userGame, {
-      //   foreignKey: "userGameId",
-      // });
+      userGameHistory.belongsTo(models.userGame, {
+        foreignKey: "userGameId",
+      });
     }
   }
   userGameHistory.init(
     {
       id: {
         type: DataTypes.INTEGER,
+        autoIncrement: true,
         primaryKey: true,
       },
       userGameId: DataTypes.INTEGER,
