@@ -95,7 +95,7 @@ router.post("/dashboard/edit/:id", async (req, res) => {
     await userGame
       .update(data, { where: { id: req.params.id } })
       .then(() => {
-        res.status(201).redirect("/dashboard&msg=updated");
+        res.status(201).redirect("/dashboard");
       })
       .catch((err) => res.status(422).send("Cannot update user: ", err));
 
@@ -115,7 +115,7 @@ router.post("/dashboard/edit/:id", async (req, res) => {
     .then((id) => {
       if (username != "" && password != "") {
         findUsername(username).then((dbUser) => {
-          !dbUser ? updateData(userData) : res.redirect("/dashboard&msg=error");
+          !dbUser ? updateData(userData) : res.redirect("/dashboard");
         });
       } else if (username != "" && password == "") {
         findUsername(username).then((dbUser) => {
@@ -134,7 +134,7 @@ router.post("/dashboard/edit/:id", async (req, res) => {
 router.post("/dashboard/delete/:id", (req, res) =>
   userGame
     .destroy({ where: { id: req.params.id } })
-    .then(() => res.status(201).redirect("/dashboard&msg=deleted"))
+    .then(() => res.status(201).redirect("/dashboard"))
     .catch(() => res.status(422).send("Cannot delete the games id"))
 );
 
