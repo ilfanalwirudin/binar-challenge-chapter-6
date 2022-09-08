@@ -85,11 +85,10 @@
                     <th class="text-center">
                       <a
                         type="button"
-                        class="btn btn-success editButton"
-                        data-bs-toggle="modal"
-                        data-bs-target="#updateModal"
+                        class="btn btn-success detailButton"
+                        data-bs-target="#details"
                         data-bs-id="<%= item.id %>"
-                        href="../dashboard/details/<%= item.id %>"
+                        href="/details/<%= item.id %>"
                       >
                         Details
                       </a>
@@ -99,7 +98,7 @@
                         data-bs-toggle="modal"
                         data-bs-target="#updateModal"
                         data-bs-id="<%= item.id %>"
-                        href="../dashboard/edit/<%= item.id %>"
+                        href="/dashboard/edit/<%= item.id %>"
                       >
                         Update
                       </a>
@@ -109,7 +108,7 @@
                         data-bs-toggle="modal"
                         data-bs-target="#deleteModal"
                         data-bs-id="<%= item.id %>"
-                        href="../dashboard/delete/<%= item.id %>"
+                        href="/dashboard/delete/<%= item.id %>"
                       >
                         Delete
                       </a>
